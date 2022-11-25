@@ -6,11 +6,27 @@ import moment from 'moment-timezone';
 let latitude = 35.875
 let longitude = -79
 //America%2FNew_York
-const timezone = moment.tz.guess()
+let timezone = moment.tz.guess()
 // Make a request
 
 const argv = minimist(process.argv.slice(2));
 
+if (argv.z) {
+    timezone = argv.z;
+}
+
+if (argv.n) {
+    latitude = argv.n;
+}
+if (argv.s) {
+    latitude = -(argv.s);
+}
+if (argv.e) {
+    longitude = argv.e;
+}
+if (argv.w) {
+    longitude = -(argv.w);
+}
 
 
 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + latitude + '&longitude=' + longitude + '&timezone=' + timezone + '&daily=precipitation_hours&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch');
