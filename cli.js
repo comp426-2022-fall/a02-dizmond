@@ -5,7 +5,7 @@ import moment from 'moment-timezone';
 
 const timezone = moment.tz.guess()
 // Make a request
-const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.91&longitude=-79.06&timezone=America%2FNew_York&daily=precipitation_hours&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch');
+const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.875&longitude=-79&timezone=America%2FNew_York&daily=precipitation_hours&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch');
 
 const argv = minimist(process.argv.slice(2));
 const data = await response.json();
