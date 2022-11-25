@@ -5,9 +5,10 @@ import moment from 'moment-timezone';
 
 const timezone = moment.tz.guess()
 // Make a request
-const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.91&longitude=-79.06&hourly=temperature_2m');
+const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.91&longitude=-79.06&timezone=America%2FNew_York&daily=precipitation_hours&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch');
 
 const argv = minimist(process.argv.slice(2));
+const data = await response.json();
 if (argv.h === true) {
     console.log('Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE');
     console.log('    -h            Show this help message and exit.');
@@ -18,19 +19,13 @@ if (argv.h === true) {
     console.log('    -j            Echo pretty JSON from open-meteo API and exit.');
     process.exit(0);
 } else if (argv.j === true) {
-    console.log('return JSON weather data here');
+    console.log(data);
     process.exit(0);
 } else if (argv.d == 0) {
-    console.log("today.")
+    console.log("There will be " + data.daily.precipitation_hours[0] + " hours of precipitation today.")
 } else if (argv.d > 1) {
-    console.log("in " + argv.d + " days.")
+    console.log("There will be " + data.daily.precipitation_hours[argv.d] + " hours of precipitation in " + argv.d + " days.")
 } else {
-    console.log("tomorrow.")
+    console.log("There will be " + data.daily.precipitation_hours[1] + " hours of precipitation tomorrow.")
 }
 
-// Get the data from the request
-//console.log(response);
-console.log(timezone);
-
-
-// const days = args.d
