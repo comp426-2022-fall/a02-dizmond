@@ -3,11 +3,17 @@ import minimist from 'minimist';
 import fetch from 'node-fetch';
 import moment from 'moment-timezone';
 
+let latitude = 35.875
+let longitude = -79
+//America%2FNew_York
 const timezone = moment.tz.guess()
 // Make a request
-const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.875&longitude=-79&timezone=America%2FNew_York&daily=precipitation_hours&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch');
 
 const argv = minimist(process.argv.slice(2));
+
+
+
+const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + latitude + '&longitude=' + longitude + '&timezone=' + timezone + '&daily=precipitation_hours&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch');
 const data = await response.json();
 if (argv.h === true) {
     console.log('Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE');
